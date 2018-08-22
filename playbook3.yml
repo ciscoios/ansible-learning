@@ -1,0 +1,26 @@
+---
+- name: Install Nginx web server
+  hosts: all
+  become: yes
+
+  vars: 
+    source_file: index.html
+    destin_file: /usr/share/nginx/html
+
+  tasks:
+  - name: Install Nginx web server
+    apt: name=nginx state=latest
+  - name: Rename/Backup index.html file
+    shell: mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.html.bkp
+    run_once: true
+
+  - name: Copy index.html file to nginx folder
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+    notify: Restart_nginx
+
+  - name: Start Web server and make it enabled for boot
+    systemd: name=nginx state=started enabled=yes
+ 
+#    handlers:
+#    - name: Restart_nginx
+#      systemd: name=nginx state=restarted
