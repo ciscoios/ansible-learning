@@ -21,4 +21,9 @@
 
   - name: Start Web server and make it enabled for boot
     systemd: name=nginx state=started enabled=yes
+  handlers:
+  - name: Restart-nginx
+    systemd:
+        name: nginx
+        state: restarted
  

@@ -1,0 +1,5 @@
+[staging_servers]
+ansible-test2 ansible_host=172.31.6.26 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key 
+[prod_servers]
+ansible-test3 ansible_host=172.31.16.37 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key
+ansible-test4 ansible_host=172.31.17.238 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key

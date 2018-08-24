@@ -1,0 +1,11 @@
+
+---
+- name: Install Nginx web server
+  hosts: all
+  become: yes
+
+  tasks: 
+  - name: Install Nginx web server
+    apt:  update_cache=yes name=nginx state=latest
+  - name: Enable at every boot
+    systemd: name=nginx state=started enabled=yes

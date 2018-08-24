@@ -44,12 +44,12 @@
 
 [staging_servers]
 #ansible-test2 ansible_host=172.31.6.26 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key 
-ansible-test2 ansible_host=172.31.6.26  
-ansible-test3 ansible_host=172.31.16.37 
+ansible-slave1 ansible_host=35.176.158.52
+ansible-slave2 ansible_host=35.178.110.103
 [prod_servers]
 #ansible-test3 ansible_host=172.31.16.37 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key
 #ansible-test4 ansible_host=172.31.17.238 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/london.key
-ansible-test4 ansible_host=172.31.17.238 
+ansible-slave3 ansible_host=52.56.157.43 
 
 
 [all:children]
