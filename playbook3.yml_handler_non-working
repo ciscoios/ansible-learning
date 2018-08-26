@@ -8,9 +8,6 @@
     destin_file: /var/www/html
 
   tasks:
-  - name: Check and print linux version
-    debug: var=ansible_os_family
-
   - name: Install Nginx web server
     apt: name=nginx state=latest
   - name: Rename/Backup index.html file

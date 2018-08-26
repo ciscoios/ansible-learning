@@ -1,7 +1,7 @@
 ---
 handlers:
   - name: Restart-nginx
-    systemd:
+    service:
         name: nginx
         state: restarted
 

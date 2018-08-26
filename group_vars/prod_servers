@@ -1,3 +1,4 @@
 ---
 ansible_user                 : ubuntu
+owner                        : devops
 ansible_ssh_private_key_file : /home/iptcp/.ssh/London-key-24082018.key

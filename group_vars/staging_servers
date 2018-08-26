@@ -1,2 +1,3 @@
-ansible_user                 : ubuntu  
+ansible_user                 : ec2-user 
+owner                        : iptcp 
 ansible_ssh_private_key_file : /home/iptcp/.ssh/London-key-24082018.key

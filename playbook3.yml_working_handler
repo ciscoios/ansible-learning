@@ -1,0 +1,63 @@
+---
+- name: Install Nginx web server
+  hosts: all
+  become: yes
+
+  vars: 
+    source_file: index.html
+    destin_file: /var/www/html
+    destin_file_redhat: /usr/share/nginx/html
+
+  tasks:
+  - name: Print linux os family version
+    debug: var=ansible_os_family
+
+  - name: Install python bindings
+    package: name=rpm-python state=latest
+    when: ansible_os_family == "Redhat"
+
+#  - name: Install EPEL release for nginx on Redhat
+#    yum: name=epel-release state=present
+
+ 
+  - name: Install Nginx web server for Redhat
+    package: name=nginx state=present update_cache=true
+    notify:
+        - start nginx
+    when: ansible_os_family == "RedHat"
+  
+  - name: Install Nginx web server for Ubuntu
+    package: name=nginx state=latest update_cache=true
+
+  - name: Rename/Backup index.html file for Debian ansible_os_family
+    shell: test -e /var/www/html/index.nginx-debian.html && cp /var/www/html/index.nginx-debian.html /var/www/html/index.html.bkp || exit 0
+#    run_once: true
+#    notify: Restart-nginx
+    when: ansible_os_family == "Debian"
+
+  - name: Rename/Backup index.html file for Redhat ansible_os_family
+    shell: test -e /usr/share/nginx/html/index.html && cp /usr/share/nginx/html/index.html /usr/share/nginx/html/index.html.bkp || exit 0
+    when: ansible_os_family == "RedHat"
+
+  - name: Copy index.html file to nginx folder
+    copy: src={{ source_file }} dest={{ destin_file_redhat }} mode=0555
+    notify: Restart-nginx
+    when: ansible_os_family == "RedHat"
+
+  
+  - name: Copy index.html file to nginx folder
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+    notify: Restart-nginx
+    when: ansible_os_family == "Debian"
+
+  - name: Start Web server and make it enabled for boot
+    service: name=nginx state=started enabled=yes
+
+  handlers:
+  - name: Restart-nginx
+    service:
+        name: nginx
+        state: restarted
+  - name: start nginx
+    service: name=nginx enabled=yes state=started
+ 
